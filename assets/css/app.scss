@@ -1,0 +1,18 @@
+// customize some Bootstrap variables
+$WSblack: #1c0b19;
+$WSdarkblue: #140d4f;
+$body-bg: #4ea699;
+$info: #016fb9;
+$primary: #22aed1;
+
+
+
+.navbarWS {
+    background-color : $info;
+    color : $WSdarkblue;
+}
+
+
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
