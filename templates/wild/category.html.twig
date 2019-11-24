@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Test route Category{% endblock %}
+
+{% block body %}
+
+        <h1>Les 3 premières séries de la table program correspondant à la catégorie {{ categoryName }} (id classé par ordre décroissant) : </h1>
+        {% for program in programs %}
+            <div>
+                <h2>{{ loop.index }} / {{ program.title }} / id n°{{ program.id }} </h2>
+                <p>{{ program.summary }}</p>
+            </div>
+        {% else %}
+            Aucune série trouvée pour la categorie {{ categoryName }}.
+        {% endfor %}
+        <a href="{{ path('app_index') }}">
+            Retour à l'accueil
+        </a>
+{% endblock %}
