@@ -93,5 +93,23 @@ class WildController extends AbstractController
             'categoryName' => $categoryName,
         ]);
     }
+
+    /**
+     * @Route("/program/{programName<^[a-z0-9-]+$>}", name="show_program", defaults={"programName" = null})
+     * @return Response
+     */
+    public function showByProgram($programName)
+    {
+
+    }
+
+    /**
+     * @Route("/season/{seasonId<^[0-9]+$>}", name="show_season", defaults={"seasonId"= null})
+     * @return Response
+     */
+    public function showBySeason($seasonId)
+    {
+
+    }
 }
 
