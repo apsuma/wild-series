@@ -100,7 +100,7 @@ class WildController extends AbstractController
      */
     public function showByProgram($programName)
     {
-
+        return $this->render('wild/program.html.twig');
     }
 
     /**
@@ -109,7 +109,7 @@ class WildController extends AbstractController
      */
     public function showBySeason($seasonId)
     {
-
+        return $this->render('wild/season.html.twig');
     }
 }
 
