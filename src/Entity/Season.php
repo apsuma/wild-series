@@ -93,6 +93,10 @@ class Season
         return $this->episodes;
     }
 
+    /**
+     * @param Episode $episode
+     * @return Episode
+     */
     public function addEpisode(Episode $episode): self
     {
         if (!$this->episodes->contains($episode)) {
@@ -103,6 +107,10 @@ class Season
         return $this;
     }
 
+    /**
+     * @param Episode $episode
+     * @return Episode
+     */
     public function removeEpisode(Episode $episode): self
     {
         if ($this->episodes->contains($episode)) {
@@ -112,7 +120,6 @@ class Season
                 $episode->setSeason(null);
             }
         }
-
         return $this;
     }
 }

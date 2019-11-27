@@ -98,17 +98,42 @@ class WildController extends AbstractController
      * @Route("/program/{programName<^[a-z0-9-]+$>}", name="show_program", defaults={"programName" = null})
      * @return Response
      */
-    public function showByProgram($programName)
+    public function showByProgram(string $programName):?Response
     {
-        return $this->render('wild/program.html.twig');
+        if (!$programName) {
+            throw $this
+                ->createNotFoundException(('No parameter has been sent to find a program'));
+        }
+        $programName = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($programName)), "-")
+        );
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(['title' => mb_strtolower($programName)]);
+        if (!$program) {
+            throw $this->createNotFoundException(
+                'No program with ' . $programName . ', found in program\'s table.'
+            );
+        }
+        $seasons = $program->getSeasons();
+        return $this->render('wild/program.html.twig', [
+            'programName'=>$programName,
+            'program'=>$program,
+            'seasons'=>$seasons,
+        ]);
     }
 
     /**
      * @Route("/season/{seasonId<^[0-9]+$>}", name="show_season", defaults={"seasonId"= null})
      * @return Response
      */
-    public function showBySeason($seasonId)
+    public function showBySeason(int $seasonId):Response
     {
+        if (!$seasonId) {
+            throw $this
+                ->createNotFoundException(('No parameter has been sent to find a season'));
+        }
         return $this->render('wild/season.html.twig');
     }
 }

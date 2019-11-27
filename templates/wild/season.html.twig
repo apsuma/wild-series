@@ -3,4 +3,18 @@
 {% block title %} Test route Season{% endblock %}
 
 {% block body %}
+    <h1>Liste des épisodes de la saison {{ seasonTitle }} : </h1>
+    {% for episode in episodes %}
+        <div>
+            <a href="{{ path('wild_show_season') }}">
+                Episode {{ episode.number }} : {{ episode.title }}
+            </a>
+            <p>{{ episode.synopsis }}</p>
+        </div>
+    {% else %}
+        Aucun épisode trouvé pour la saison {{ seasonTitle }}.
+    {% endfor %}
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}

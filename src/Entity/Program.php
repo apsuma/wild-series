@@ -109,6 +109,10 @@ class Program
     {
         return $this->seasons;
     }
+    /**
+     * @param Season $season
+     * @return Season
+     */
 
     public function addSeason(Season $season): self
     {
@@ -116,10 +120,13 @@ class Program
             $this->seasons[] = $season;
             $season->setProgram($this);
         }
-
         return $this;
     }
 
+    /**
+     * @param Season $season
+     * @return Season
+     */
     public function removeSeason(Season $season): self
     {
         if ($this->seasons->contains($season)) {
@@ -129,7 +136,6 @@ class Program
                 $season->setProgram(null);
             }
         }
-
         return $this;
     }
 }
