@@ -3,7 +3,14 @@
 {% block title %} Test route Program{% endblock %}
 
 {% block body %}
-    <h1>Les saisons de la série {{ programName }} : </h1>
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <div class="media-body">
+            <h1 class="mt-0">{{ program.title }}</h1>
+            <p>{{ program.summary }}</p>
+            <p>Categorie : {{ program.category.name }}</p>
+
+    <h2>Les saisons de la série : </h2>
     {% for season in seasons %}
         <div>
             <a href="{{ path('wild_season_details',{'id':season.id}) }}">
@@ -13,6 +20,8 @@
     {% else %}
         Aucune saison trouvée pour la série {{ programName }}.
     {% endfor %}
+        </div>
+    </div>
     <a href="{{ path('app_index') }}">
         Retour à l'accueil
     </a>
