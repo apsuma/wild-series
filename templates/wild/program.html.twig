@@ -6,7 +6,7 @@
     <h1>Les saisons de la série {{ programName }} : </h1>
     {% for season in seasons %}
         <div>
-            <a href="{{ path('wild_show_season') }}">
+            <a href="{{ path('wild_season_details',{'id':season.id}) }}">
                 {{ season.description }}
             </a>
         </div>

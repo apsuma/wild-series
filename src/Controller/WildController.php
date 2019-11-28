@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Program;
+use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -125,16 +126,18 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/season/{seasonId<^[0-9]+$>}", name="show_season", defaults={"seasonId"= null})
+     * @Route("/season/{id<^[0-9]+$>}", name="season_details", defaults={"id"= null})
      * @return Response
      */
-    public function showBySeason(int $seasonId):Response
+    public function showBySeason(Season $season):Response
     {
-        if (!$seasonId) {
+        if (!$season) {
             throw $this
                 ->createNotFoundException(('No parameter has been sent to find a season'));
         }
-        return $this->render('wild/season.html.twig');
+        return $this->render('wild/season.html.twig', [
+            'season' => $season,
+        ]);
     }
 }
 
