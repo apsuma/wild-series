@@ -1,15 +1,17 @@
 // customize some Bootstrap variables
 $WSblack: #1c0b19;
 $WSdarkblue: #140d4f;
+$WSgreenlight : #4ea699;
+$WSbluemedium : #016fb9;
 $body-bg: #4ea699;
 $info: #016fb9;
-$primary: #22aed1;
+$primary: #140d4f;
 
 
 
 .navbarWS {
-    background-color : $info;
-    color : $WSdarkblue;
+    background-color : $WSdarkblue;
+    color : $info;
 }
 
 

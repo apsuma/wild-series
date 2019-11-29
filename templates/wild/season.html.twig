@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Test route Season{% endblock %}
+
+{% block body %}
+    <h1>Liste des épisodes de la saison {{ season.description }} : </h1>
+    {% for episode in season.episodes %}
+        <div>
+            <h2>Episode {{ episode.number }} : {{ episode.title }}</h2>
+            <p>{{ episode.synopsis }}</p>
+        </div>
+    {% else %}
+        Aucun épisode trouvé pour la saison {{ seasonTitle }}.
+    {% endfor %}
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}

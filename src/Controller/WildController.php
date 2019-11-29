@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Program;
+use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,6 +92,51 @@ class WildController extends AbstractController
         return $this->render('wild/category.html.twig', [
             'programs'=> $programs,
             'categoryName' => $categoryName,
+        ]);
+    }
+
+    /**
+     * @Route("/program/{programName<^[a-z0-9-]+$>}", name="show_program", defaults={"programName" = null})
+     * @return Response
+     */
+    public function showByProgram(string $programName):?Response
+    {
+        if (!$programName) {
+            throw $this
+                ->createNotFoundException(('No parameter has been sent to find a program'));
+        }
+        $programName = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($programName)), "-")
+        );
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(['title' => mb_strtolower($programName)]);
+        if (!$program) {
+            throw $this->createNotFoundException(
+                'No program with ' . $programName . ', found in program\'s table.'
+            );
+        }
+        $seasons = $program->getSeasons();
+        return $this->render('wild/program.html.twig', [
+            'programName'=>$programName,
+            'program'=>$program,
+            'seasons'=>$seasons,
+        ]);
+    }
+
+    /**
+     * @Route("/season/{id<^[0-9]+$>}", name="season_details", defaults={"id"= null})
+     * @return Response
+     */
+    public function showBySeason(Season $season):Response
+    {
+        if (!$season) {
+            throw $this
+                ->createNotFoundException(('No parameter has been sent to find a season'));
+        }
+        return $this->render('wild/season.html.twig', [
+            'season' => $season,
         ]);
     }
 }
