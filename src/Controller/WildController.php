@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Entity\Episode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -126,17 +127,36 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/season/{id<^[0-9]+$>}", name="season_details", defaults={"id"= null})
+     * @Route("/season/{id}", name="season_details", defaults={"id"= null})
      * @return Response
      */
     public function showBySeason(Season $season):Response
     {
         if (!$season) {
             throw $this
-                ->createNotFoundException(('No parameter has been sent to find a season'));
+                ->createNotFoundException('No parameter has been sent to find a season');
         }
         return $this->render('wild/season.html.twig', [
             'season' => $season,
+        ]);
+    }
+
+    /**
+     * @route("/season/{season}/episode/{episode}", name="season_episode_details")
+     * @return Response
+     */
+    public function showEpisode(Season $season, Episode $episode):Response
+    {
+        if (!$episode) {
+            throw $this
+                ->createNotFoundException('No parameter has been sent to find an episode');
+        }
+        $programName =  mb_strtolower(trim($season->getProgram()->getTitle()));
+        $programName = str_replace(' ', '-', $programName);
+        return $this->render('wild/episode.html.twig', [
+            'season'=>$season,
+            'episode'=>$episode,
+            'programName'=>$programName,
         ]);
     }
 }

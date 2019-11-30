@@ -6,13 +6,14 @@
     <h1>Liste des épisodes de la saison {{ season.description }} : </h1>
     {% for episode in season.episodes %}
         <div>
-            <h2>Episode {{ episode.number }} : {{ episode.title }}</h2>
-            <p>{{ episode.synopsis }}</p>
+            <a href="{{ path('wild_season_episode_details',{'season':season.id, 'episode':episode.id}) }}">
+                <h2>Episode {{ episode.number }} : {{ episode.title }}</h2>
+            </a>
         </div>
     {% else %}
-        Aucun épisode trouvé pour la saison {{ seasonTitle }}.
+        Aucun épisode trouvé pour la saison {{ season.title }}.
     {% endfor %}
     <a href="{{ path('app_index') }}">
-        Retour à l'accueil
+        <h3>Retour à l'accueil</h3>
     </a>
 {% endblock %}
