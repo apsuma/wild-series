@@ -3,6 +3,7 @@
 {% block title %} Test route AddCategory{% endblock %}
 
 {% block body %}
+    <h2>Add a new category :</h2>
     {{ form_start(form) }}
         {{ form_row(form.name) }}
         <button class="btn">{{ button_label|default('Save') }}</button>
