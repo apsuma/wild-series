@@ -21,7 +21,7 @@ class WildController extends AbstractController
      * @Route("/", name = "index")
      * @return Response A response instance
      */
-    public function index() :Response
+    public function index(Request $request) :Response
     {
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
@@ -32,11 +32,13 @@ class WildController extends AbstractController
                 'No program found in program\'s table.'
             );
         }
-        $form = $this->createForm(
-            ProgramSearchType::class,
-            null,
-            ['method'=> Request::METHOD_GET]
-        );
+        $form = $this->createForm(ProgramSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            return $this->showByCategory($data['searchField']);
+        }
 
         return $this->render('wild/index.html.twig', [
             'programs' => $programs,
