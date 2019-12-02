@@ -11,23 +11,19 @@
 <div class="example-wrapper">
     <h1>Liste des acteurs ✅</h1>
     {% for actor in actors %}
-        <h2>{{ actor.id }} {{ actor.name }}</h2>
+        <h2>{{ actor.id }} <a href="{{ path('actor_details', {'name': actor.name}) }}">{{ actor.name }}</a></h2>
         <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Action</th>
             </tr>
             </thead>
             <tbody>
             {% for program in actor.programs %}
                 <tr>
                     <td>{{ program.id }}</td>
-                    <td>{{ program.title }}</td>
-                    <td>
-                        <a href="{{ path('program_show', {'id': program.id}) }}">show</a>
-                     </td>
+                    <td><a href="{{ path('program_show', {'id': program.id}) }}">{{ program.title }}</a></td>
                 </tr>
             {% else %}
                 <tr>
