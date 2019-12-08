@@ -4,24 +4,23 @@
 namespace App\DataFixtures;
 
 use App\Entity\Actor;
-use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Faker;
 
 // pour appel des class dans le bon ordre (Program avant Actor), implements DependentFixtureInterface
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
-    const ACTORS = ['andrew-lincoln', 'norman-reedus', 'lauren-cohan', 'danai-gurira'];
-
-    public function load(ObjectManager $manager)
+        public function load(ObjectManager $manager)
     {
-        foreach (self::ACTORS as $key => $actorName) {
+        $faker = Faker\Factory::create('fr_FR');
+        for ($i = 0; $i < 50; $i++) {
             $actor = new Actor();
-            $actor->setName($actorName);
-            $actor->addProgram($this->getReference('program_0'));
+            $actor->setName($faker->name);
+            $name = 'program_'. rand(0,4);
+            $actor->addProgram($this->getReference($name));
             $manager->persist($actor);
-
         }
         $manager->flush();
     }
