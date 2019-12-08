@@ -3,7 +3,7 @@
 {% block title %}Season{% endblock %}
 
 {% block body %}
-    <h1>Season</h1>
+    <h1>Season from {{ season.program.title }}</h1>
 
     <table class="table">
         <tbody>
@@ -21,7 +21,14 @@
             </tr>
         </tbody>
     </table>
-
+    <strong>Episode(s) :</strong>
+    <ul>
+        {% for episode in season.episodes %}
+            <li><a href="{{ path('episode_show', {'id': episode.id}) }}">{{ episode.title }}</a></li>
+        {% else %}
+            <li>Aucun épisode pour cette saison</li>
+        {% endfor %}
+    </ul>
     <a href="{{ path('season_index') }}">back to list</a>
 
     <a href="{{ path('season_edit', {'id': season.id}) }}">edit</a>
