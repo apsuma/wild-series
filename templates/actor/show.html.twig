@@ -4,6 +4,9 @@
 
 {% block body %}
     <h1>Fiche acteur : {{ actor.name }}</h1>
+    <h3> <a href="{{ path('actor_details', {'slug': actor.slug}) }}">show</a>
+        <a href="{{ path('actor_details_edit', {'slug': actor.slug}) }}">edit</a>
+    </h3>
     <table class="table">
         <thead>
         <tr>

@@ -11,7 +11,11 @@
 <div class="example-wrapper">
     <h1>Liste des acteurs ✅</h1>
     {% for actor in actors %}
-        <h2>{{ actor.id }} <a href="{{ path('actor_details', {'name': actor.name}) }}">{{ actor.name }}</a></h2>
+        <h2>{{ actor.id }} <a href="{{ path('actor_details', {'slug': actor.slug}) }}">{{ actor.name }}</a></h2>
+        <td>
+            <a href="{{ path('actor_details', {'slug': actor.slug}) }}">show</a>
+            <a href="{{ path('actor_details_edit', {'slug': actor.slug}) }}">edit</a>
+        </td>
         <table class="table">
             <thead>
             <tr>
@@ -32,8 +36,10 @@
             {% endfor %}
             </tbody>
         </table>
-
     {% endfor %}
-
+    <a href="{{ path('actor_add') }}"><h3>Create new Actor</h3></a>
+    <a href="{{ path('program_index') }}"><h3>Go to Programs</h3></a>
+    <a href="{{ path('season_index') }}"><h3>Go to Seasons</h3></a>
+    <a href="{{ path('category_add') }}"><h3>Go to Category</h3></a>
 </div>
 {% endblock %}
