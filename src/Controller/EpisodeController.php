@@ -37,6 +37,8 @@ class EpisodeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($episode->getTitle());
+            $episode->setSlug($slug);
             $entityManager->persist($episode);
             $entityManager->flush();
 
@@ -62,13 +64,17 @@ class EpisodeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="episode_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Episode $episode): Response
+    public function edit(Request $request, Episode $episode, Slugify $slugify): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager= $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($episode->getTitle());
+            $episode->setSlug($slug);
+            $entityManager->persist($episode);
+            $entityManager->flush();
 
             return $this->redirectToRoute('episode_index');
         }
