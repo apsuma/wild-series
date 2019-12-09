@@ -24,7 +24,7 @@
     <strong>Episode(s) :</strong>
     <ul>
         {% for episode in season.episodes %}
-            <li><a href="{{ path('episode_show', {'id': episode.id}) }}">{{ episode.title }}</a></li>
+            <li><a href="{{ path('episode_show', {'slug': episode.slug}) }}">{{ episode.title }}</a></li>
         {% else %}
             <li>Aucun épisode pour cette saison</li>
         {% endfor %}
