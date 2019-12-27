@@ -9,6 +9,12 @@
             <a class="nav-item nav-link text-light" href="{{ path('actor_index') }}">Acteurs</a>
             <a class="nav-item nav-link text-light" href="{{ path('program_index') }}">Séries</a>
             <a class="nav-item nav-link disabled text-light" href="#">Mes favoris</a>
+            {% if app.user %}
+                {{ app.user.email }}
+                <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
         </div>
     </div>
 </nav>
