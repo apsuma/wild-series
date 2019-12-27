@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -42,6 +44,16 @@ class User implements UserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $bio;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
+     */
+    private $episode;
+
+    public function __construct()
+    {
+        $this->episode = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,6 +148,37 @@ class User implements UserInterface
     public function setBio(?string $bio): self
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getEpisode(): Collection
+    {
+        return $this->episode;
+    }
+
+    public function addEpisode(Comment $episode): self
+    {
+        if (!$this->episode->contains($episode)) {
+            $this->episode[] = $episode;
+            $episode->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Comment $episode): self
+    {
+        if ($this->episode->contains($episode)) {
+            $this->episode->removeElement($episode);
+            // set the owning side to null (unless already changed)
+            if ($episode->getAuthor() === $this) {
+                $episode->setAuthor(null);
+            }
+        }
 
         return $this;
     }
