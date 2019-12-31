@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Episode{% endblock %}
+{% block title %}Episode : {{ episode.title }}{% endblock %}
 
 {% block body %}
     <h1>Episode</h1>
@@ -29,7 +29,9 @@
             </tr>
         </tbody>
     </table>
-
+    <div class="row">
+        {{ form(commentForm) }}
+    </div>
     <a href="{{ path('episode_index') }}">back to list</a>
 
     <a href="{{ path('episode_edit', {'slug': episode.slug}) }}">edit</a>
