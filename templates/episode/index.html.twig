@@ -34,9 +34,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('episode_new') }}"><h3>Create new Episode</h3></a>
-    <a href="{{ path('program_index') }}"><h3>Go to Programs</h3></a>
-    <a href="{{ path('season_index') }}"><h3>Go to Seasons</h3></a>
-    <a href="{{ path('category_add') }}"><h3>Go to Category</h3></a>
+    <div class="row d-flex justify-content-between">
+        <a class="btn btn-primary" href="{{ path('episode_new') }}"><h3>Create new Episode</h3></a>
+        <a class="btn btn-primary" href="{{ path('program_index') }}"><h3>Go to Programs</h3></a>
+        <a class="btn btn-primary" href="{{ path('season_index') }}"><h3>Go to Seasons</h3></a>
+        <a class="btn btn-primary" href="{{ path('category_add') }}"><h3>Go to Category</h3></a>
+    </div>
 {% endblock %}

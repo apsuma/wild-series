@@ -6,8 +6,9 @@
     <h1>Edit Program</h1>
 
     {{ include('program/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row d-flex justify-content-between">
+        <a class="btn btn-primary" href="{{ path('program_index') }}">back to list</a>
 
-    <a href="{{ path('program_index') }}">back to list</a>
-
-    {{ include('program/_delete_form.html.twig') }}
+        {{ include('program/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -6,8 +6,9 @@
     <h1>Edit Episode</h1>
 
     {{ include('episode/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row d-flex justify-content-between">
+        <a class="btn btn-primary" href="{{ path('episode_index') }}">back to list</a>
 
-    <a href="{{ path('episode_index') }}">back to list</a>
-
-    {{ include('episode/_delete_form.html.twig') }}
+        {{ include('episode/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
